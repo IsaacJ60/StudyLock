@@ -32,7 +32,13 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-font",
+      {
+        "web": {
+          "fonts": [ "/assets/fonts/DMSans-Regular.ttf" ]
+        }
+      }
     ],
     "experiments": {
       "typedRoutes": true

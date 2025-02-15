@@ -29,13 +29,10 @@ export default function HomeScreen(): JSX.Element {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText style={styles.title}>FOCUS</ThemedText>
-      <TouchableOpacity style={styles.lockButton} onPress={handleLockIn}>
-        <Text style={styles.lockButtonText}>LOCK IN</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.toggleCameraButton} onPress={toggleCamera}>
-        <Text style={styles.toggleCameraButtonText}>
-          {cameraActive ? 'TURN OFF CAMERA' : 'TURN ON CAMERA'}
+      <ThemedText style={styles.title}>STUDY LOCK</ThemedText>
+      <TouchableOpacity style={styles.lockButton} onPress={toggleCamera}>
+      <Text style={styles.toggleCameraButtonText}>
+          {cameraActive ? 'STOP' : 'FOCUS'}
         </Text>
       </TouchableOpacity>
       {Platform.OS === 'web' && cameraActive ? (
@@ -51,21 +48,24 @@ export default function HomeScreen(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
+    fontFamily: 'DMSans',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#121212',
   },
   title: {
-    fontSize: 32,
+    fontFamily: 'DMSans',
+    fontSize: 64,
     fontWeight: 'bold',
     color: 'white',
-    marginBottom: 40,
+    marginBottom: 60,
   },
   lockButton: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    fontFamily: 'DMSans',
+    width: 200,
+    height: 200,
+    borderRadius: 100,
     backgroundColor: '#ff6347',
     justifyContent: 'center',
     alignItems: 'center',
@@ -76,28 +76,33 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   lockButtonText: {
+    fontFamily: 'DMSans',
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
   text: {
+    fontFamily: 'DMSans',
     color: 'white',
-    marginTop: 20,
+    marginTop: 40,
   },
   webcamContainer: {
+    fontFamily: 'DMSans',
     marginTop: 20,
     width: '100%',
     height: 300,
   },
   toggleCameraButton: {
+    fontFamily: 'DMSans',
     marginTop: 20,
     padding: 10,
     backgroundColor: '#4CAF50',
     borderRadius: 5,
   },
   toggleCameraButtonText: {
+    fontFamily: 'DMSans',
     color: 'white',
-    fontSize: 16,
+    fontSize: 32,
     fontWeight: 'bold',
   },
 });
