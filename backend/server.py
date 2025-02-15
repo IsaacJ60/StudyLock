@@ -75,6 +75,7 @@ def image():
 
             return jsonify({
                 "message": "Phone detected!" if phone_detected else "No phone detected.",
+                "score": 0 if phone_detected else 1,
                 "phone_detected": phone_detected
             }), 200
 

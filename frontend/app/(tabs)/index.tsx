@@ -3,10 +3,12 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState, useEffect, useRef } from 'react';
 import WebcamComponent, { WebcamComponentRef } from '@/components/WebcamComponent'; // Import the ref type
+import { useStateContext } from '../context/context'; // Import the hook
 
 export default function HomeScreen(): JSX.Element {
   const [cameraActive, setCameraActive] = useState(false); // State to toggle the camera
   const webcamRef = useRef<WebcamComponentRef | null>(null); // Reference to access WebcamComponent
+  const { sharedState, setSharedState } = useStateContext();  // Access the context
 
   // Function to send the backend request
   const handleLockIn = async (): Promise<void> => {
@@ -25,7 +27,6 @@ export default function HomeScreen(): JSX.Element {
     }
   };
 
-  // Function to send image data to the backend
   const sendImage = async (image: string): Promise<void> => {
     try {
       const response = await fetch('http://localhost:5000/api/image', {
@@ -37,6 +38,12 @@ export default function HomeScreen(): JSX.Element {
       });
       const data = await response.json();
       console.log('Response:', data);
+  
+      if (data.score === 1) {
+        // Use the functional form to update the state
+        setSharedState((prevState) => prevState + data.score);
+        // Log the updated state (after it's been updated in the next render cycle)
+      }
     } catch (error) {
       console.error('Error:', error);
     }
@@ -63,7 +70,7 @@ export default function HomeScreen(): JSX.Element {
     if (cameraActive) {
       // If the camera is active, start sending requests every 5 seconds
       intervalId = setInterval(() => {
-        captureImage(); // Capture and send the image every 5 seconds
+        const status = captureImage(); // Capture and send the image every 5 seconds
       }, 5000); // 5000 ms = 5 seconds
     } else {
       // If the camera is turned off, clear the interval
@@ -83,21 +90,22 @@ export default function HomeScreen(): JSX.Element {
   return (
     <ThemedView style={styles.container}>
       <ThemedText style={styles.title}>STUDY LOCK</ThemedText>
+      <ThemedText style={styles.score}> Score: {sharedState} </ThemedText>
       <TouchableOpacity style={styles.lockButton} onPress={toggleCamera}>
         <Text style={styles.toggleCameraButtonText}>
           {cameraActive ? 'STOP' : 'FOCUS'}
         </Text>
       </TouchableOpacity>
       {Platform.OS === 'web' && cameraActive ? (
-        <View style={styles.webcamContainer}>
-          <WebcamComponent ref={webcamRef} /> {/* Pass the ref to WebcamComponent */}
-        </View>
+        <div style={styles.webcamContainer}>
+                  <WebcamComponent ref={webcamRef} />
+        </div>
       ) : (
-        <Text style={styles.text}>Camera not active or camera access not supported on this platform.</Text>
+        <ThemedText style={styles.text}>Camera not active or camera access not supported on this platform.</ThemedText>
       )}
     </ThemedView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -139,10 +147,20 @@ const styles = StyleSheet.create({
     color: 'white',
     marginTop: 40,
   },
+  score: {
+    fontFamily: 'DMSans',
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 0,
+    marginBottom: 20,
+  },
   webcamContainer: {
     fontFamily: 'DMSans',
     marginTop: 20,
     height: 300,
+    width: 400,
+    borderRadius: 100,
   },
   toggleCameraButton: {
     fontFamily: 'DMSans',
