@@ -11,6 +11,7 @@ import {
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { Ionicons } from "@expo/vector-icons"; // For icons
+import { ImageBackground } from "react-native";
 
 type TaskColumns = {
   todo: string[];
@@ -23,6 +24,7 @@ type TaskDueDates = {
 };
 
 export default function TaskManagementScreen() {
+  const BackgroundImage = {uri: 'https://i.imgur.com/gX2L2IW.png'};
   const [taskColumns, setTaskColumns] = useState<TaskColumns>({
     todo: [],
     inProgress: [],
@@ -108,10 +110,20 @@ export default function TaskManagementScreen() {
   };
 
   return (
+    <ImageBackground source={BackgroundImage} style={styles.background}>
+
     <ThemedView style={styles.container}>
       <ThemedText type="title" style={styles.title}>
-        Today
+        Task Board
       </ThemedText>
+
+      <View
+        style={{
+          borderBottomColor: 'lightgray',
+          borderBottomWidth: StyleSheet.hairlineWidth,
+          marginBottom: 50,
+        }}
+        />
 
       <View style={styles.columnsContainer}>
         {Object.entries(taskColumns).map(([column, tasks]) => (
@@ -225,21 +237,30 @@ export default function TaskManagementScreen() {
         </View>
       </Modal>
     </ThemedView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
     padding: 20,
   },
+  background: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    fontFamily: 'DMSans',
+},
   title: {
-    fontSize: 24,
+    fontFamily: 'DMSans',
+    fontSize: 36,
     fontWeight: "bold",
     color: "white",
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: 30,
+    marginTop: 10,
   },
   columnsContainer: {
     flexDirection: "row",
@@ -250,6 +271,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   columnTitle: {
+    fontFamily: 'DMSans',
     fontSize: 18,
     fontWeight: "bold",
     color: "white",
@@ -257,6 +279,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   taskItem: {
+    fontFamily: 'DMSans',
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -268,12 +291,13 @@ const styles = StyleSheet.create({
     borderBottomColor: "#555",
   },
   taskText: {
+    fontFamily: 'DMSans',
     color: "white",
     fontSize: 16,
     flex: 1,
   },
   dueDateText: {
-    color: "#ff6347",
+    color: "#0077B6",
     fontSize: 12,
     marginLeft: 10,
   },
@@ -293,13 +317,16 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   input: {
-    height: 40,
+    fontFamily: 'DMSans',
+    height: 50,
     borderWidth: 1,
     borderColor: "#555",
     borderRadius: 5,
     paddingHorizontal: 10,
     color: "white",
     marginTop: 10,
+    backgroundColor: "rgba(0, 0, 0, 0.9)",
+
   },
   modalContainer: {
     flex: 1,
@@ -308,6 +335,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
+    fontFamily: 'DMSans',
     backgroundColor: "#333",
     borderRadius: 10,
     padding: 20,
@@ -316,6 +344,7 @@ const styles = StyleSheet.create({
     alignItems: "center", // Center the content horizontally
   },
   dateTimeInput: {
+    fontFamily: 'DMSans',
     width: "100%", // Match the width of the buttons
     padding: 10,
     marginBottom: 10,
@@ -326,18 +355,21 @@ const styles = StyleSheet.create({
     color: "white",
   },
   confirmButton: {
+    fontFamily: 'DMSans',
     width: "100%", // Match the width of the input
-    backgroundColor: "#ff6347",
+    backgroundColor: "#023E8A",
     padding: 10,
     borderRadius: 5,
     alignItems: "center",
     marginBottom: 10,
   },
   confirmButtonText: {
+    fontFamily: 'DMSans',
     color: "white",
     fontSize: 16,
   },
   cancelButton: {
+    fontFamily: 'DMSans',
     width: "100%", // Match the width of the input
     backgroundColor: "#555",
     padding: 10,
@@ -345,6 +377,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cancelButtonText: {
+    fontFamily: 'DMSans',
     color: "white",
     fontSize: 16,
   },

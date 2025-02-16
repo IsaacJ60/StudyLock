@@ -1,16 +1,19 @@
-// context/StateContext.tsx
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 // Define types for the shared state
 interface StateContextType {
   sharedState: number;
-  setSharedState: React.Dispatch<React.SetStateAction<number>>; // This allows function updates
+  setSharedState: React.Dispatch<React.SetStateAction<number>>; 
+  phoneNumber: string;
+  setPhoneNumber: React.Dispatch<React.SetStateAction<string>>;
 }
 
 // Default values for the context
 const defaultContextValues: StateContextType = {
   sharedState: 0,
-  setSharedState: () => {}, // Placeholder for default
+  setSharedState: () => {},
+  phoneNumber: '',
+  setPhoneNumber: () => {},
 };
 
 // Create the context with default values
@@ -25,10 +28,11 @@ interface StateProviderProps {
 }
 
 export const StateProvider: React.FC<StateProviderProps> = ({ children }) => {
-  const [sharedState, setSharedState] = useState<number>(0); // Ensure sharedState is a number
+  const [sharedState, setSharedState] = useState<number>(0);
+  const [phoneNumber, setPhoneNumber] = useState<string>(''); // New state for phone number
 
   return (
-    <StateContext.Provider value={{ sharedState, setSharedState }}>
+    <StateContext.Provider value={{ sharedState, setSharedState, phoneNumber, setPhoneNumber }}>
       {children}
     </StateContext.Provider>
   );
