@@ -1,0 +1,6 @@
+Flask==2.2.5
+Flask_Cors==3.0.10
+Pillow==11.1.0
+python-dotenv==1.0.1
+twilio==9.4.5
+ultralytics==8.3.75
