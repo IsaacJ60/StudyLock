@@ -1,4 +1,5 @@
-# StudyLock
+
+![croppedIMG_0560 (1)](https://github.com/user-attachments/assets/06f44226-2f2a-4fd5-b94e-1be54b596f23)
 
 ## 📱Inspiration
 In our day-and-age, distractions are very common, and sometimes hard to deal with. That's where this idea came into play. It started out as a simple voice assistant helper plushie, but evolved into a full multi-featured application that helps students keep focused while studying.
